@@ -1,0 +1,3 @@
+include ':UniversalClient'
+
+project(':UniversalClient').projectDir=new File(settingsDir, '../../universal-client/java'); 
