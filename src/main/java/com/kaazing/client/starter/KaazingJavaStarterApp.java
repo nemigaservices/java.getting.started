@@ -25,31 +25,25 @@ import com.kaazing.client.universal.UniversalClientProtocol;
  */
 public class KaazingJavaStarterApp {
 	public static void main(String[] args) throws Exception {
-		try (UniversalClient universalClient = UniversalClientFactory.createUniversalClient(UniversalClientProtocol.amqp, // Use
-																															// AMQP
+		try (UniversalClient universalClient = UniversalClientFactory.createUniversalClient(UniversalClientProtocol.amqp, // Use AMQP
 				new URI("ws://localhost:8001/amqp"), // Kaazing Gateway URL
 				"guest", // Login to use to connect to Kaazing Gateway
 				"guest", // Password to use to connect to Kaazing Gateway
-				new ErrorsListener() { // Error listener callback - simply print
-										// errors
-
+				new ErrorsListener() { // Error listener callback - simply print errors
 					@Override
 					public void onException(ClientException exception) {
 						System.err.println("Exception occurred! " + exception.getMessage());
 					}
 				});) {
 
-			ClientSubscription connection = universalClient.connect("test", // publishing
-																			// point
+			ClientSubscription subscription = universalClient.subscribe("test", // publishing point
 					"test", // subscription point
-					new MessagesListener() { // Message listener - simply print
-												// messages
+					new MessagesListener() { // Message listener - simply print messages
 						@Override
 						public void onMessage(Serializable message) {
 							System.out.println("Received message: " + message.toString());
 						}
-					}, false); // We want to receive our own messages - noLocal
-								// is false
+					}, false); // We want to receive our own messages - noLocal is false
 
 			System.out.println("Kaazing Java Starter App. Copyright (C) 2016 Kaazing, Inc.");
 			System.out.println("Type the message to send or <exit> to stop.");
@@ -59,9 +53,9 @@ public class KaazingJavaStarterApp {
 				if (text.toLowerCase().equals("<exit>"))
 					break;
 				// Send as a text
-				connection.sendMessage(text);
+				subscription.sendMessage(text);
 				// Send as an object
-				connection.sendMessage(new TestObjectMessage(text));
+				subscription.sendMessage(new TestObjectMessage(text));
 			}
 		}
 	}
