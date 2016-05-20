@@ -25,7 +25,7 @@ public class KaazingJavaStarterApp {
     public static void main(String[] args) throws Exception {
         try (UniversalClient universalClient = UniversalClientFactory.createUniversalClient(UniversalClientProtocol.amqp, // Use
                                                                                                                           // AMQP
-                new URI("ws://localhost:8001/amqp"), // Kaazing Gateway URL
+                new URI("wss://sandbox.kaazing.net/amqp091"), // Kaazing Gateway URL
                 "guest", // Login to use to connect to Kaazing Gateway
                 "guest", // Password to use to connect to Kaazing Gateway
                 new ErrorsListener() { // Error listener callback - simply print
