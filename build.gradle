@@ -16,10 +16,7 @@ jar {
 
 
 repositories {
-    mavenCentral()
-     maven {
-		url "http://artifactory.kaazing.wan/artifactory/libs-releases-local"
-    }
+    mavenCentral()     
 }
 
 dependencies {
